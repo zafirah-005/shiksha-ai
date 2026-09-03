@@ -14,10 +14,18 @@ logger = logging.getLogger("app.main")
 
 app = FastAPI(title="AI Teacher API")
 
+# The frontend never sends cookies/credentials (no auth beyond a typed name),
+# so there's no need for allow_credentials -- which matters here because it's
+# what let this be hardcoded to exactly http://localhost:3000 before. On a
+# clone running on a different machine, Next.js silently picks a different
+# port if 3000 is already taken (3001, 3002, ...), and the browser blocks
+# every request as a CORS failure with no readable error -- the frontend
+# loads fine, but every API call fails with a bare "Failed to fetch". Match
+# any localhost/127.0.0.1 port instead of one hardcoded value.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
-    allow_credentials=True,
+    allow_origin_regex=r"http://(localhost|127\.0\.0\.1):\d+",
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
