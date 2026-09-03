@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+/* Soft pastel "clay" theme -- committed to a single calm, airy light look
+   rather than an auto dark-mode variant, since the whole point of this
+   palette is that specific soft-gradient warmth. Phase 5 evolves it toward
+   glassmorphism: frosted cards floating over soft drifting gradient blobs. */
+:root {
+  --background: #fbf7f0;
+  --foreground: #4a4458;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-jakarta);
+
+  /* Pastel clay palette */
+  --color-clay-cream: #fbf7f0;
+  --color-clay-cream-dark: #f1e7d8;
+  --color-clay-blue: #9dc0de;
+  --color-clay-blue-dark: #6f9ac0;
+  --color-clay-lavender: #cdbdef;
+  --color-clay-lavender-dark: #a98be0;
+  --color-clay-pink: #f7b3c2;
+  --color-clay-pink-dark: #ea8ba0;
+  --color-clay-mint: #b9e6c9;
+  --color-clay-mint-dark: #8ccca7;
+  --color-clay-ink: #4a4458;
+  --color-clay-ink-soft: #837c93;
+  --color-clay-ink-faint: #b4adc0;
+
+  /* A rounder radius scale for the clay look, layered on top of Tailwind's defaults */
+  --radius-clay-sm: 18px;
+  --radius-clay: 28px;
+  --radius-clay-lg: 40px;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), "Segoe UI", ui-rounded, system-ui, sans-serif;
+  position: relative;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading), var(--font-sans), sans-serif;
+  letter-spacing: -0.015em;
+}
+
+/* ---------- Layered background: soft drifting gradient blobs ---------- */
+/* Fixed behind everything (z-index via -z-10 on the wrapper in layout.tsx);
+   this is what glass cards float over -- without it, backdrop-blur has
+   nothing textured to blur and just looks like plain translucency. */
+@keyframes blob-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(24px, -32px) scale(1.06);
+  }
+  66% {
+    transform: translate(-22px, 22px) scale(0.96);
+  }
+}
+
+.bg-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: 0.55;
+  animation: blob-drift 20s ease-in-out infinite;
+}
+
+/* ---------- Glassmorphism ---------- */
+.glass-card {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow:
+    0 20px 44px -16px rgba(111, 154, 192, 0.32),
+    0 8px 18px -8px rgba(74, 68, 88, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.glass-mint {
+  background: rgba(185, 230, 201, 0.38);
+}
+.glass-pink {
+  background: rgba(247, 179, 194, 0.32);
+}
+.glass-lavender {
+  background: rgba(205, 189, 239, 0.32);
+}
+.glass-cream {
+  background: rgba(241, 231, 216, 0.55);
+}
+.glass-blue {
+  background: rgba(157, 192, 222, 0.3);
+}
+
+/* ---------- Micro-interactions ---------- */
+.hover-lift {
+  transition:
+    transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 220ms ease;
+}
+.hover-lift:hover {
+  transform: translateY(-3px) scale(1.012);
+}
+
+/* Soft, warm-tinted shadow standing in for a "3D clay" lift -- a wide, low
+   blurred shadow rather than a crisp default one. */
+.shadow-clay {
+  box-shadow:
+    0 16px 36px -12px rgba(111, 154, 192, 0.28),
+    0 6px 14px -6px rgba(74, 68, 88, 0.12);
+}
+
+.shadow-clay-sm {
+  box-shadow:
+    0 8px 18px -8px rgba(111, 154, 192, 0.24),
+    0 3px 8px -3px rgba(74, 68, 88, 0.1);
+}
+
+/* ---------- Avatar animations ---------- */
+@keyframes character-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.character-bob {
+  animation: character-bob 3.2s ease-in-out infinite;
+}
+
+@keyframes character-nod {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  30% {
+    transform: translateY(3px) rotate(-3deg);
+  }
+  60% {
+    transform: translateY(0) rotate(2deg);
+  }
+}
+
+.character-nod {
+  animation:
+    character-bob 3.2s ease-in-out infinite,
+    character-nod 700ms ease-in-out 2;
+}
