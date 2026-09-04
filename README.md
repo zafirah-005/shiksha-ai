@@ -27,22 +27,6 @@ Most "AI tutor" demos are a chatbot with a syllabus prompt. Three things here ar
 2. **Re-teaching is adaptive, not repetitive.** The Adapt step is explicitly instructed to use a different angle than the original explanation, targeted at the diagnosed misconception — confirmed working end-to-end in testing, not just a documented intent.
 3. **It remembers you, and *uses* it.** A learner's past weak areas and misconceptions are injected into the next session's Plan step. In real testing, a learner who got "inertia is not a force" wrong in session 1 started session 2 (a different topic) with a plan segment titled *"Quick Review of Inertia: eliminate the misconception that inertia is a force"* — unprompted, generated purely from the stored history. That's the callback other tutoring demos don't do.
 
-## Screenshots
-
-<!-- TODO: replace with real screenshots/GIFs before submission -->
-
-![Landing page — topic/upload entry, level, time, and language selection](docs/screenshots/landing.png)
-
-![Lesson player — avatar teaching a segment with a subject-aware visual on screen](docs/screenshots/lesson-player.png)
-
-![Quiz + misconception feedback — wrong answer caught and named, avatar reacting](docs/screenshots/misconception-feedback.png)
-
-![Adaptive re-teach — same concept explained with a different analogy](docs/screenshots/adapt.gif)
-
-![Final report — score, strong/weak areas, further reading](docs/screenshots/report.png)
-
-![Learner profile dashboard — score trend and recurring weak areas across sessions](docs/screenshots/profile.png)
-
 ## Tech stack
 
 | Layer | Choice |
@@ -85,12 +69,5 @@ Then open `http://localhost:3000`.
 
 - **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** — system design, the teaching-loop state machine, RAG pipeline
 - **[docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md)** — scripted walkthrough for judges
-
-## Team
-
-<!-- TODO: fill in before submission -->
-
-**Team name:** _TBD_
-**Members:** _TBD_
 
 Submitted to AI Innovation Hackathon 2026.
